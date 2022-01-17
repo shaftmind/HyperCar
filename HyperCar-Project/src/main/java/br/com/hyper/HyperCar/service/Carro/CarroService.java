@@ -1,10 +1,10 @@
-package br.com.hyper.HyperCar.service.impl;
+package br.com.hyper.HyperCar.service.Carro;
 
 import br.com.hyper.HyperCar.Entity.Carro;
 import br.com.hyper.HyperCar.Repository.CarroRepository;
 import br.com.hyper.HyperCar.converter.DozerConverter;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.ICarroService;
+import br.com.hyper.HyperCar.service.Carro.ICarroService;
 import br.com.hyper.HyperCar.vo.CarroVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CarroImplementacaoService implements ICarroService {
+public class CarroService implements ICarroService {
 
     @Autowired
     private CarroRepository carroRepository;

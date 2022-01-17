@@ -1,10 +1,10 @@
-package br.com.hyper.HyperCar.service.impl;
+package br.com.hyper.HyperCar.service.Comprador;
 
 import br.com.hyper.HyperCar.Entity.Comprador;
 import br.com.hyper.HyperCar.Repository.CompradorRepository;
 import br.com.hyper.HyperCar.converter.DozerConverter;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.ICompradorService;
+import br.com.hyper.HyperCar.service.Comprador.ICompradorService;
 import br.com.hyper.HyperCar.vo.CompradorVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CompradorImplemetacaoService implements ICompradorService {
+public class CompradorService implements ICompradorService {
 
     @Autowired
     private CompradorRepository compradorRepository;

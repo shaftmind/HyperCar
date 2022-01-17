@@ -1,12 +1,10 @@
-package br.com.hyper.HyperCar.service.impl;
+package br.com.hyper.HyperCar.service.Endereco;
 
-import br.com.hyper.HyperCar.Entity.Carro;
 import br.com.hyper.HyperCar.Entity.Endereco;
-import br.com.hyper.HyperCar.Repository.CarroRepository;
 import br.com.hyper.HyperCar.Repository.EnderecoRepository;
 import br.com.hyper.HyperCar.converter.DozerConverter;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.IEnderecoService;
+import br.com.hyper.HyperCar.service.Endereco.IEnderecoService;
 import br.com.hyper.HyperCar.vo.EnderecoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EnderecoImplementacaoService implements IEnderecoService {
+public class EnderecoService implements IEnderecoService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
