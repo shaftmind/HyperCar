@@ -14,38 +14,35 @@ public class CarroVO {
     private Integer id;
 
     @NotNull
-    @NotBlank
     private String modelo;
 
     @NotNull
-    @NotBlank
     private Integer ano;
 
     @NotNull
-    @NotBlank
     @Positive
     private Double preco;
 
     @NotNull
-    @NotBlank
     private String fabricante;
 
     @NotNull
-    @NotBlank
     private String cor;
 
     @NotNull
-    @NotBlank
     private String placa;
 
     @NotNull
-    @NotBlank
     private String estado;
 
     @NotNull
-    @NotBlank
     private Boolean ativo;
 
+
+    public Integer getId() {
+
+        return id;
+    }
 
     public String getModelo() {
         return modelo;
