@@ -1,16 +1,17 @@
 package br.com.hyper.HyperCar.service.Comprador;
 
-import br.com.hyper.HyperCar.Entity.Carro;
-import br.com.hyper.HyperCar.Entity.Comprador;
-import br.com.hyper.HyperCar.vo.CompradorVO;
+import br.com.hyper.HyperCar.buy.request.CompradorRequest;
+import br.com.hyper.HyperCar.data.model.entity.Comprador;
+import br.com.hyper.HyperCar.data.vo.CompradorVO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICompradorService {
 
-    List<CompradorVO> trazerTodosCompradores();
-    CompradorVO buscarComprador(Integer id);
-    CompradorVO salvarComprador(CompradorVO comprador);
-    CompradorVO editarComprador(CompradorVO comprador, Integer id);
+    List<Comprador> trazerTodosCompradores();
+    Optional<Comprador> buscarComprador(Integer id);
+    Comprador salvarComprador(CompradorRequest comprador);
+    Comprador editarComprador(CompradorRequest comprador, Integer id);
     void deletarComprador(Integer id);
 }

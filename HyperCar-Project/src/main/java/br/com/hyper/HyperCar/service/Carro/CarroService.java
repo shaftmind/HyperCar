@@ -1,15 +1,14 @@
 package br.com.hyper.HyperCar.service.Carro;
 
-import br.com.hyper.HyperCar.Entity.Carro;
-import br.com.hyper.HyperCar.Repository.CarroRepository;
-import br.com.hyper.HyperCar.converter.DozerConverter;
+import br.com.hyper.HyperCar.car.request.CarroRequest;
+import br.com.hyper.HyperCar.data.model.entity.Carro;
+import br.com.hyper.HyperCar.data.model.repository.CarroRepository;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.Carro.ICarroService;
-import br.com.hyper.HyperCar.vo.CarroVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class  CarroService implements ICarroService {
@@ -18,49 +17,48 @@ public class  CarroService implements ICarroService {
     private CarroRepository carroRepository;
 
     @Override
-    public List<CarroVO> trazerTodosCarros() {
-        return DozerConverter.parseListObjects(carroRepository.findByAtivo(true), CarroVO.class);
+    public List<Carro> trazerTodosCarros() {
+        return carroRepository.findByAtivo(true);
     }
 
     @Override
-    public CarroVO buscarCarro(Integer id) {
-        Carro entity = carroRepository.findByIdAndAtivo(id, true)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
+    public Optional<Carro> buscarCarro(Integer id) {
+        return carroRepository.findByIdAndAtivo(id, true);
 
-    return DozerConverter.parseObject(entity, CarroVO.class);
     }
 
     @Override
-    public CarroVO salvarCarro(CarroVO car) {
-        Carro entity = DozerConverter.parseObject(car, Carro.class);
-        CarroVO vo = DozerConverter.parseObject(carroRepository.save(entity), CarroVO.class);
-        return vo;
+    public Carro salvarCarro(CarroRequest car) {
+        Carro carroEntity = new Carro();
+        return carroRepository.save(setarInformacoesCarro(car, carroEntity));
     }
-
+    public Carro setarInformacoesCarro(CarroRequest request, Carro car){
+        car.setAtivo(car.getAtivo());
+        car.setAno(car.getAno());
+        car.setCor(car.getCor());
+        car.setEstado(car.getEstado());
+        car.setFabricante(car.getFabricante());
+        car.setModelo(car.getModelo());
+        car.setPlaca(car.getPlaca());
+        car.setPreco(car.getPreco());
+        return car;
+    }
     @Override
-    public CarroVO editarCarro(CarroVO car, Integer id) {
-        Carro entity = carroRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
-        entity.setAno(car.getAno());
-        entity.setAtivo(true);
-        entity.setCor(car.getCor());
-        entity.setEstado(car.getEstado());
-        entity.setFabricante(car.getFabricante());
-        entity.setModelo(car.getModelo());
-        entity.setPlaca(car.getPlaca());
-        entity.setPreco(car.getPreco());
-
-//        CarroVO vo = DozerConverter.parseObject
-//                (carroRepository.save(DozerConverter.parseObject(car, Carro.class)), CarroVO.class);
-
-        CarroVO vo = DozerConverter.parseObject(carroRepository.save(entity), CarroVO.class);
-        return vo;
+    public Carro editarCarro(CarroRequest car, Integer id) {
+        Optional<Carro> carro = carroRepository.findById(id);
+        if (!carro.isPresent()){
+            return null;
+        }
+        else {
+            Carro carroEntity = new Carro();
+            return carroRepository.save(setarInformacoesCarro(car, carroEntity));
+        }
     }
 
     @Override
     public void deletarCarro(Integer id) {
         Carro entity = carroRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
 
         entity.setAtivo(false);
         carroRepository.save(entity);

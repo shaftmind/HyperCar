@@ -1,15 +1,14 @@
 package br.com.hyper.HyperCar.service.Comprador;
 
-import br.com.hyper.HyperCar.Entity.Comprador;
-import br.com.hyper.HyperCar.Repository.CompradorRepository;
-import br.com.hyper.HyperCar.converter.DozerConverter;
+import br.com.hyper.HyperCar.buy.request.CompradorRequest;
+import br.com.hyper.HyperCar.data.model.entity.Comprador;
+import br.com.hyper.HyperCar.data.model.repository.CompradorRepository;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.Comprador.ICompradorService;
-import br.com.hyper.HyperCar.vo.CompradorVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompradorService implements ICompradorService {
@@ -18,45 +17,42 @@ public class CompradorService implements ICompradorService {
     private CompradorRepository compradorRepository;
 
     @Override
-    public List<CompradorVO> trazerTodosCompradores() {
-        return DozerConverter.parseListObjects(compradorRepository.findByAtivo(true), CompradorVO.class);
+    public List<Comprador> trazerTodosCompradores() {
+        return compradorRepository.findByAtivo(true);
     }
 
     @Override
-    public CompradorVO buscarComprador(Integer id) {
-        Comprador entity = compradorRepository.findByIdAndAtivo(id, true)
-                .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
-
-        return DozerConverter.parseObject(entity, CompradorVO.class);
+    public Optional<Comprador> buscarComprador(Integer id) {
+        return compradorRepository.findByIdAndAtivo(id, true);
     }
 
     @Override
-    public CompradorVO salvarComprador(CompradorVO comprador) {
-        Comprador entity = DozerConverter.parseObject(comprador, Comprador.class);
-        compradorRepository.save(entity);
-        return DozerConverter.parseObject(entity, CompradorVO.class);
+    public Comprador salvarComprador(CompradorRequest request) {
+        Comprador comprador = new Comprador();
+        return  compradorRepository.save(setarInformacoes(request, comprador));
+    }
+
+    public Comprador setarInformacoes(CompradorRequest request, Comprador comprador){
+        comprador.setCpf(request.getCpf());
+        comprador.setAtivo(request.getAtivo());
+        comprador.setDataNascimento(request.getDataNascimento());
+        comprador.setEnderecoFk(request.getEnderecoFk());
+        comprador.setEnderecoFk(request.getNome());
+        comprador.setSobrenome(request.getSobrenome());
+        return comprador;
     }
 
     @Override
-    public CompradorVO editarComprador(CompradorVO comprador, Integer id) {
+    public Comprador editarComprador(CompradorRequest comprador, Integer id) {
         Comprador compradorAtualizado = compradorRepository.findByIdAndAtivo(id, true)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
-
-            compradorAtualizado.setAtivo(true);
-            compradorAtualizado.setCpf(comprador.getCpf());
-            compradorAtualizado.setDataNascimento(comprador.getDataNascimento());
-            compradorAtualizado.setEnderecoFk(comprador.getEnderecoFk());
-            compradorAtualizado.setNome(comprador.getNome());
-            compradorAtualizado.setSobrenome(comprador.getSobrenome());
-            return DozerConverter.parseObject(compradorRepository.save(compradorAtualizado), CompradorVO.class);
-
+            return compradorRepository.save(setarInformacoes(comprador, compradorAtualizado));
     }
 
     @Override
     public void deletarComprador(Integer id) {
         Comprador compradorDeletado = compradorRepository.findByIdAndAtivo(id,true)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
-
             compradorDeletado.setAtivo(false);
             compradorRepository.save(compradorDeletado);
 

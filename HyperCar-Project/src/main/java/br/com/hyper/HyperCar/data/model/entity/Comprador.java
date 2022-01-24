@@ -1,42 +1,31 @@
-package br.com.hyper.HyperCar.Entity;
+package br.com.hyper.HyperCar.data.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
 public class Comprador {
 
-    @Id()
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
-    @NotBlank
     private String cpf;
 
-    @NotNull
-    @NotBlank
+
     private String nome;
 
-    @NotNull
-    @NotBlank
-    private Integer sobrenome;
+    private String sobrenome;
 
-    @NotNull
-    @NotBlank
+
     private String enderecoFk;
 
-    @NotNull
-    @NotBlank
+
     private LocalDate dataNascimento;
 
-    @NotNull
-    @NotBlank
     private Boolean ativo;
 
     public Integer getId() {
@@ -51,11 +40,16 @@ public class Comprador {
         this.nome = nome;
     }
 
-    public Integer getSobrenome() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSobrenome() {
         return sobrenome;
     }
 
-    public void setSobrenome(Integer sobrenome) {
+
+    public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
     }
 

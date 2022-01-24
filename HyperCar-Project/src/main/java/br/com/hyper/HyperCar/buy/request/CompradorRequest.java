@@ -1,34 +1,34 @@
-package br.com.hyper.HyperCar.vo;
+package br.com.hyper.HyperCar.buy.request;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
-public class CompradorVO {
 
+public class CompradorRequest {
+
+    @NotEmpty
     private String cpf;
 
-    @NotNull
-    @NotBlank
+    @NotEmpty
     private String nome;
 
-    @NotNull
-    @NotBlank
-    private Integer sobrenome;
+    @NotEmpty
+    private String sobrenome;
 
-    @NotNull
-    @NotBlank
+    @NotEmpty
     private String enderecoFk;
 
-    @NotNull
-    @NotBlank
     private LocalDate dataNascimento;
 
-    @NotNull
-    @NotBlank
     private Boolean ativo;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
     public String getNome() {
         return nome;
@@ -38,20 +38,12 @@ public class CompradorVO {
         this.nome = nome;
     }
 
-    public Integer getSobrenome() {
+    public String getSobrenome() {
         return sobrenome;
     }
 
-    public void setSobrenome(Integer sobrenome) {
+    public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getEnderecoFk() {

@@ -1,6 +1,6 @@
-package br.com.hyper.HyperCar.Repository;
+package br.com.hyper.HyperCar.data.model.repository;
 
-import br.com.hyper.HyperCar.Entity.Endereco;
+import br.com.hyper.HyperCar.data.model.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

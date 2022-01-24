@@ -1,15 +1,16 @@
 package br.com.hyper.HyperCar.service.Carro;
 
-import br.com.hyper.HyperCar.Entity.Carro;
-import br.com.hyper.HyperCar.vo.CarroVO;
+import br.com.hyper.HyperCar.car.request.CarroRequest;
+import br.com.hyper.HyperCar.data.model.entity.Carro;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICarroService {
 
-    List<CarroVO> trazerTodosCarros();
-    CarroVO buscarCarro(Integer id);
-    CarroVO salvarCarro(CarroVO car);
-    CarroVO editarCarro(CarroVO car, Integer id);
+    List<Carro> trazerTodosCarros();
+    Optional<Carro> buscarCarro(Integer id);
+    Carro salvarCarro(CarroRequest car);
+    Carro editarCarro(CarroRequest car, Integer id);
     void deletarCarro(Integer id);
 }

@@ -1,15 +1,15 @@
 package br.com.hyper.HyperCar.service.Endereco;
 
-import br.com.hyper.HyperCar.Entity.Endereco;
-import br.com.hyper.HyperCar.Repository.EnderecoRepository;
-import br.com.hyper.HyperCar.converter.DozerConverter;
+import br.com.hyper.HyperCar.data.model.entity.Endereco;
+import br.com.hyper.HyperCar.data.model.repository.EnderecoRepository;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.Endereco.IEnderecoService;
-import br.com.hyper.HyperCar.vo.EnderecoVO;
+import br.com.hyper.HyperCar.data.vo.EnderecoVO;
+import br.com.hyper.HyperCar.user.request.EnderecoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnderecoService implements IEnderecoService {
@@ -18,45 +18,54 @@ public class EnderecoService implements IEnderecoService {
     private EnderecoRepository enderecoRepository;
 
     @Override
-    public List<EnderecoVO> trazerTodosEnderecos() {
-        return DozerConverter.parseListObjects(enderecoRepository.findByAtivo(true), EnderecoVO.class);
+    public List<Endereco> trazerTodosEnderecos() {
+        return enderecoRepository.findByAtivo(true);
     }
 
     @Override
-    public EnderecoVO buscarEndereco(Integer id) {
-        Endereco entity = enderecoRepository.findByIdAndAtivo(id, true).orElseThrow(() ->
-                new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
-        return DozerConverter.parseObject(entity, EnderecoVO.class);
-    }
-
-    @Override
-    public EnderecoVO salvarEndereco(EnderecoVO endereco) {
-        Endereco entity = DozerConverter.parseObject(endereco, Endereco.class);
-        enderecoRepository.save(entity);
-        return endereco;
-    }
-
-    @Override
-    public EnderecoVO editarEndereco(EnderecoVO endereco, Integer id) {
-        Endereco entity = enderecoRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
-
-        entity.setAtivo(true);
-        entity.setBairro(endereco.getBairro());
-        entity.setCep(endereco.getCep());
-        entity.setCidade(endereco.getCidade());
-        entity.setEstado(endereco.getEstado());
-        entity.setRua(endereco.getRua());
-        entity.setNumero(endereco.getNumero());
-        return DozerConverter.parseObject(enderecoRepository.save(entity), EnderecoVO.class);
+    public Optional<Endereco> buscarEndereco(Integer id) {
+        return enderecoRepository.findByIdAndAtivo(id, true);
 
     }
 
     @Override
-    public void deletarEndereco(Integer id) {
-        Endereco entity = enderecoRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Nenhum registro encontrado para este ID"));
-        entity.setAtivo(false);
-        enderecoRepository.save(entity);
+    public Endereco salvarEndereco(EnderecoRequest endereco) {
+        Endereco enderecoEntity = new Endereco();
+        return enderecoRepository.save(setarInformacoesEndereco(endereco, enderecoEntity));
+    }
+    public Endereco setarInformacoesEndereco(EnderecoRequest request, Endereco enderecoEntity){
+        enderecoEntity.setAtivo(request.getAtivo());
+        enderecoEntity.setBairro(request.getBairro());
+        enderecoEntity.setCep(request.getCep());
+        enderecoEntity.setCidade(request.getCidade());
+        enderecoEntity.setEstado(request.getEstado());
+        enderecoEntity.setNumero(request.getNumero());
+        enderecoEntity.setRua(request.getRua());
+        return enderecoEntity;
+    }
+
+    @Override
+    public Optional<Endereco> editarEndereco(EnderecoRequest endereco, Integer id) {
+        Optional<Endereco> enderecoAtualizar = enderecoRepository.findByIdAndAtivo(id , true);
+        if (!enderecoAtualizar.isPresent()){
+            return null;
+        }
+        else {
+            enderecoRepository.save(setarInformacoesEndereco(endereco, enderecoAtualizar.get()));
+            return  enderecoAtualizar;
+        }
+    }
+
+    @Override
+    public Optional<Endereco> deletarEndereco(Integer id) {
+        Optional<Endereco> enderecoExcluir = enderecoRepository.findByIdAndAtivo(id, true);
+        if (!enderecoExcluir.isPresent()){
+            return null;
+        }
+        else {
+            enderecoExcluir.get().setAtivo(false);
+            enderecoRepository.save(enderecoExcluir.get());
+            return enderecoExcluir;
+        }
     }
 }

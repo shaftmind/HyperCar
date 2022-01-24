@@ -1,18 +1,11 @@
-package br.com.hyper.HyperCar.Entity;
+package br.com.hyper.HyperCar.data.vo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-@Entity
-public class Carro {
+public class CarroVO {
 
-    @Id()
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @NotNull
@@ -40,6 +33,11 @@ public class Carro {
     @NotNull
     private Boolean ativo;
 
+
+    public Integer getId() {
+
+        return id;
+    }
 
     public String getModelo() {
         return modelo;
