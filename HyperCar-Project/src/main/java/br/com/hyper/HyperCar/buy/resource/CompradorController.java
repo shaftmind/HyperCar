@@ -4,15 +4,15 @@ import br.com.hyper.HyperCar.buy.mapper.CompradorToCompradorVO;
 import br.com.hyper.HyperCar.buy.request.CompradorRequest;
 import br.com.hyper.HyperCar.data.model.entity.Comprador;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.Comprador.ICompradorService;
+import br.com.hyper.HyperCar.buy.service.ICompradorService;
 import br.com.hyper.HyperCar.data.vo.CompradorVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -28,8 +28,14 @@ public class CompradorController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CompradorVO> getTodosCompradores(){
-        return service.trazerTodosCompradores().stream().map(compradorMapper::map).collect(Collectors.toList());
+    public Page<CompradorVO> getTodosCompradores(Pageable pageable){
+        Page<CompradorVO> compradorPage = service.trazerTodosCompradores(pageable);
+        if (compradorPage.getContent().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        else {
+            return  compradorPage;
+        }
     }
 
     @GetMapping("/{id}")
@@ -40,7 +46,7 @@ public class CompradorController {
         return compradorMapper.map(comprador.get());
     }
 
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     public CompradorVO postComprador(@RequestBody CompradorRequest comprador){
         return compradorMapper.map(service.salvarComprador(comprador));
@@ -49,7 +55,6 @@ public class CompradorController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CompradorVO putComprador(@RequestBody CompradorRequest comprador, @PathVariable Integer id){
-
         return compradorMapper.map(service.editarComprador(comprador, id));
     }
 

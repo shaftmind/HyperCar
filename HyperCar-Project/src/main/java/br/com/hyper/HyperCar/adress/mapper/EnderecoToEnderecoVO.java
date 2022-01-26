@@ -1,4 +1,4 @@
-package br.com.hyper.HyperCar.user.mapper;
+package br.com.hyper.HyperCar.adress.mapper;
 
 import br.com.hyper.HyperCar.configuration.DefaultResponseMapperConfig;
 import br.com.hyper.HyperCar.data.model.entity.Endereco;

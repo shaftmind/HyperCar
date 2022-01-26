@@ -1,10 +1,8 @@
-package br.com.hyper.HyperCar.service.Endereco;
+package br.com.hyper.HyperCar.adress.service;
 
 import br.com.hyper.HyperCar.data.model.entity.Endereco;
 import br.com.hyper.HyperCar.data.model.repository.EnderecoRepository;
-import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.data.vo.EnderecoVO;
-import br.com.hyper.HyperCar.user.request.EnderecoRequest;
+import br.com.hyper.HyperCar.adress.request.EnderecoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,7 @@
-package br.com.hyper.HyperCar.service.Endereco;
+package br.com.hyper.HyperCar.adress.service;
 
 import br.com.hyper.HyperCar.data.model.entity.Endereco;
-import br.com.hyper.HyperCar.data.vo.EnderecoVO;
-import br.com.hyper.HyperCar.user.request.EnderecoRequest;
+import br.com.hyper.HyperCar.adress.request.EnderecoRequest;
 
 import java.util.List;
 import java.util.Optional;

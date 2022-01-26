@@ -1,19 +1,16 @@
-package br.com.hyper.HyperCar.user.resource;
+package br.com.hyper.HyperCar.adress.resource;
 
 import br.com.hyper.HyperCar.data.model.entity.Endereco;
 import br.com.hyper.HyperCar.exception.ResourceNoContentException;
 import br.com.hyper.HyperCar.exception.ResourceNotFoundException;
-import br.com.hyper.HyperCar.service.Endereco.IEnderecoService;
+import br.com.hyper.HyperCar.adress.service.IEnderecoService;
 import br.com.hyper.HyperCar.data.vo.EnderecoVO;
-import br.com.hyper.HyperCar.user.mapper.EnderecoToEnderecoVO;
-import br.com.hyper.HyperCar.user.request.EnderecoRequest;
+import br.com.hyper.HyperCar.adress.mapper.EnderecoToEnderecoVO;
+import br.com.hyper.HyperCar.adress.request.EnderecoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
 

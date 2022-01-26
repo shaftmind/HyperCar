@@ -4,11 +4,10 @@ import br.com.hyper.HyperCar.car.mapper.CarroToCarroVO;
 import br.com.hyper.HyperCar.car.request.CarroRequest;
 import br.com.hyper.HyperCar.data.model.entity.Carro;
 import br.com.hyper.HyperCar.exception.ResourceNoContentException;
-import br.com.hyper.HyperCar.service.Carro.ICarroService;
+import br.com.hyper.HyperCar.car.service.ICarroService;
 import br.com.hyper.HyperCar.data.vo.CarroVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

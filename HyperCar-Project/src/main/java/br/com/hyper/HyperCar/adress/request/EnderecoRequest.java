@@ -1,11 +1,6 @@
-package br.com.hyper.HyperCar.user.request;
+package br.com.hyper.HyperCar.adress.request;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 public class EnderecoRequest {

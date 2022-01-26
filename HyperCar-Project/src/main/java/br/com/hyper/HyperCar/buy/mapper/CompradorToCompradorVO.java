@@ -4,7 +4,6 @@ import br.com.hyper.HyperCar.configuration.DefaultResponseMapperConfig;
 import br.com.hyper.HyperCar.data.model.entity.Comprador;
 import br.com.hyper.HyperCar.data.vo.CompradorVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", config = DefaultResponseMapperConfig.class)
 public interface CompradorToCompradorVO {
